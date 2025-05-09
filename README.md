@@ -65,8 +65,20 @@ This project is licensed under the terms described in the [LICENSE](./LICENSE) f
   
 ---  
 
+## Walk thru notes
+
+[MCP Inspector](https://github.com/modelcontextprotocol/inspector)
+
+From an MCP server repository
+
+```bash
+npx @modelcontextprotocol/inspector node build/index.js
+```
+
 ```bash
 export DB_PATH=agentic_ai/backend_services/data/contoso.db && uv run agentic_ai/backend_services/mcp_service.py
+
+$env:DB_PATH = "agentic_ai/backend_services/data/contoso.db"; uv run agentic_ai/backend_services/mcp_service.py
 
 uv run agentic_ai/backend_services/test_mcp_service.py
 
