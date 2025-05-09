@@ -16,7 +16,8 @@ from typing import Any, List, Dict
   
 from fastmcp import Client  
 from fastmcp.exceptions import ClientError  
-  
+from fastmcp.client import SSETransport  
+
 MCP_URL = os.getenv("MCP_URL", "http://127.0.0.1:8080/sse")  
   
 logging.basicConfig(  
@@ -65,7 +66,8 @@ async def test_get_all_customers(client: Client) -> List[Dict[str, Any]] | None:
 async def test_customer_detail(client: Client, cust_id: int):  
     title = f"get_customer_detail({cust_id})"  
     try:  
-        res = await client.call_tool("get_customer_detail", {"customer_id": cust_id})  
+        params = {"customer_id": cust_id}
+        res = await client.call_tool("get_customer_detail", {"params": {"customer_id": cust_id}})  
         data = _to_native(res[0])  
         print_result(title, isinstance(data, dict), data)  
     except Exception as e:  
@@ -75,7 +77,7 @@ async def test_customer_detail(client: Client, cust_id: int):
 async def test_subscription_detail(client: Client, sub_id: int):  
     title = f"get_subscription_detail({sub_id})"  
     try:  
-        res = await client.call_tool("get_subscription_detail", {"subscription_id": sub_id})  
+        res = await client.call_tool("get_subscription_detail", {"params":{"subscription_id": sub_id}})  
         data = _to_native(res[0])  
         print_result(title, isinstance(data, dict), data)  
     except Exception as e:  
@@ -95,7 +97,7 @@ async def test_promotions(client: Client):
 async def test_eligible_promos(client: Client, cust_id: int):  
     title = f"get_eligible_promotions({cust_id})"  
     try:  
-        res = await client.call_tool("get_eligible_promotions", {"customer_id": cust_id})  
+        res = await client.call_tool("get_eligible_promotions", {"params": {"customer_id": cust_id}})  
         data = _to_native(res[0])  
         print_result(title, isinstance(data, list), data)  
     except Exception as e:  
@@ -105,7 +107,7 @@ async def test_eligible_promos(client: Client, cust_id: int):
 async def test_kb_search(client: Client, query: str):  
     title = f"search_knowledge_base('{query}')"  
     try:  
-        res = await client.call_tool("search_knowledge_base", {"query": query, "topk": 2})  
+        res = await client.call_tool("search_knowledge_base", {"params": {"query": query, "topk": 2}})  
         data = [_to_native(c) for c in res]  
         ok = isinstance(data, list) and data  
         print_result(title, ok, data)  
@@ -116,7 +118,7 @@ async def test_kb_search(client: Client, query: str):
 async def test_security_logs(client: Client, cust_id: int):  
     title = f"get_security_logs({cust_id})"  
     try:  
-        res = await client.call_tool("get_security_logs", {"customer_id": cust_id})  
+        res = await client.call_tool("get_security_logs", {"params": {"customer_id": cust_id}})  
         data = _to_native(res[0])  
         ok = isinstance(data, list)  
         print_result(title, ok, data[:3])  
@@ -127,7 +129,7 @@ async def test_security_logs(client: Client, cust_id: int):
 async def test_orders(client: Client, cust_id: int):  
     title = f"get_customer_orders({cust_id})"  
     try:  
-        res = await client.call_tool("get_customer_orders", {"customer_id": cust_id})  
+        res = await client.call_tool("get_customer_orders", {"params" : {"customer_id": cust_id}})  
         data = _to_native(res[0])  
         ok = isinstance(data, list)  
         print_result(title, ok, data[:2])  
@@ -156,7 +158,7 @@ async def test_data_usage(client: Client, sub_id: int):
 async def test_billing_summary(client: Client, cust_id: int):  
     title = f"get_billing_summary({cust_id})"  
     try:  
-        res = await client.call_tool("get_billing_summary", {"customer_id": cust_id})  
+        res = await client.call_tool("get_billing_summary", {"params": {"customer_id": cust_id}})  
         data = _to_native(res[0])  
         ok = isinstance(data, dict) and "total_due" in data  
         print_result(title, ok, data)  
@@ -181,7 +183,7 @@ async def test_update_subscription(client: Client, sub_id: int):
 async def test_unlock_account(client: Client, cust_id: int):  
     title = f"unlock_account({cust_id})"  
     try:  
-        res = await client.call_tool("unlock_account", {"customer_id": cust_id})  
+        res = await client.call_tool("unlock_account", {"params":{"customer_id": cust_id}})  
         data = _to_native(res[0])  
         ok = "unlocked" in str(data).lower()  
         print_result(title, ok, data)  
@@ -193,7 +195,7 @@ async def test_unlock_account(client: Client, cust_id: int):
   
 # ─────────────────────────────  main runner  ────────────────────────────  
 async def run_tests():  
-    async with Client(MCP_URL) as client:  
+    async with Client(SSETransport(MCP_URL)) as client:  
         logging.info("Running FastMCP smoke‑tests against %s", MCP_URL)  
   
         customers = await test_get_all_customers(client)  
@@ -202,8 +204,8 @@ async def run_tests():
         await test_customer_detail(client, sample_cust)  
         await test_customer_detail(client, 999999)          # expected fail  
   
-        # pick first subscription for that customer  
-        detail_res = await client.call_tool("get_customer_detail", {"customer_id": sample_cust})  
+        #pick first subscription for that customer  
+        detail_res = await client.call_tool("get_customer_detail", {"params":{"customer_id": sample_cust}})  
         subs = _to_native(detail_res[0]).get("subscriptions", [])  
         sample_sub = subs[0]["subscription_id"] if subs else 1  
   

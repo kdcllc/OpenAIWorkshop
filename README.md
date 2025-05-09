@@ -64,3 +64,10 @@ Please review our [Code of Conduct](./CODE_OF_CONDUCT.md) and [Security Guidelin
 This project is licensed under the terms described in the [LICENSE](./LICENSE) file.  
   
 ---  
+
+```bash
+export DB_PATH=agentic_ai/backend_services/data/contoso.db && uv run agentic_ai/backend_services/mcp_service.py
+
+uv run agentic_ai/backend_services/test_mcp_service.py
+
+```
