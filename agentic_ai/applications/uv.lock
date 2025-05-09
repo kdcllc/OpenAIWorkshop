@@ -156,6 +156,8 @@ source = { virtual = "." }
 dependencies = [
     { name = "autogen-agentchat" },
     { name = "autogen-ext", extra = ["mcp"] },
+    { name = "azure-ai-projects" },
+    { name = "azure-identity" },
     { name = "faker" },
     { name = "fastapi" },
     { name = "fastmcp" },
@@ -175,6 +177,8 @@ dependencies = [
 requires-dist = [
     { name = "autogen-agentchat", specifier = ">=0.5.6" },
     { name = "autogen-ext", extras = ["mcp"], specifier = ">=0.5.6" },
+    { name = "azure-ai-projects", specifier = ">=1.0.0b10" },
+    { name = "azure-identity", specifier = ">=1.22.0" },
     { name = "faker", specifier = ">=37.1.0" },
     { name = "fastapi", specifier = ">=0.115.12" },
     { name = "fastmcp", specifier = ">=2.3.0" },
@@ -268,6 +272,20 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/d0/d6/8cc3c644364199e564e0642674f68b0aeebedc18b6877460c22f7484f3ab/av-14.3.0-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:96d19099b3867fac67dfe2bb29fd15ef41f1f508d2ec711d1f081e505a9a8d04", size = 34356871 },
     { url = "https://files.pythonhosted.org/packages/27/85/6327062a5bb61f96411c0f444a995dc6a7bf2d7189d9c896aa03b4e46028/av-14.3.0-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:15dc4a7c916620b733613661ceb7a186f141a0fc98608dfbafacdc794a7cd665", size = 37174375 },
     { url = "https://files.pythonhosted.org/packages/5b/c0/44232f2e04358ecce33a1d9354f95683bb24262a788d008d8c9dafa3622d/av-14.3.0-cp313-cp313-win_amd64.whl", hash = "sha256:f930faa2e6f6a46d55bc67545b81f5b22bd52975679c1de0f871fc9f8ca95711", size = 27433259 },
+]
+
+[[package]]
+name = "azure-ai-projects"
+version = "1.0.0b10"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "azure-core" },
+    { name = "isodate" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/26/2e/e6ab1f7c1b12fcef9549a797a575e3dd5a71297ce12b083a983311cd5069/azure_ai_projects-1.0.0b10.tar.gz", hash = "sha256:cdc8055305cec762f09f7581796ea97599d2a2fb26f2c8486f34f728d5bdc98a", size = 323251 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/96/7c/e45b98dc298a706ac639064aec316730a534d0d49d27986d00ba4e23dced/azure_ai_projects-1.0.0b10-py3-none-any.whl", hash = "sha256:77cd7fdac5affc37c437e60f1e244a706c1151b1bf682c5a471b3d233978b647", size = 200755 },
 ]
 
 [[package]]

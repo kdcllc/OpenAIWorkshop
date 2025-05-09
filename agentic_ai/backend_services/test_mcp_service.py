@@ -17,7 +17,7 @@ from typing import Any, List, Dict
 from fastmcp import Client  
 from fastmcp.exceptions import ClientError  
   
-MCP_URL = os.getenv("MCP_URL", "http://127.0.0.1:8000/sse")  
+MCP_URL = os.getenv("MCP_URL", "http://127.0.0.1:8080/sse")  
   
 logging.basicConfig(  
     level=logging.INFO, format="%(levelname)s | %(message)s", force=True  

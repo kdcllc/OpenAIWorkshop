@@ -1,3 +1,6 @@
+# azure-ai-projects
+# azure-identity
+
 import os
 import logging
 import asyncio
