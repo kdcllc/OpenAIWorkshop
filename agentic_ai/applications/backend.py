@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 # Load environment variables from .env file.
-load_dotenv()
+load_dotenv(override=True)
 
 # Add parent directory (contoso_internet) to the python path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))

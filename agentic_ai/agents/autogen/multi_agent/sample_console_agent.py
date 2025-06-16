@@ -69,7 +69,7 @@ async def main() -> None:
     )  
     # Run the team with a task and print the messages to the console.
     request ="I noticed my last invoice was higher than usual—can you help me understand why and what can be done about it? my customer id is 251"
-    async for message in team_agent.run_stream(task=):  # type: ignore
+    async for message in team_agent.run_stream(task):  # type: ignore
         print(type(message).__name__, message)
     result = await team_agent.run(task=request)
     print(result)

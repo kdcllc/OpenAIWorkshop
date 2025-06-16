@@ -18,7 +18,7 @@ class BaseAgent:
         self.azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")  
         self.api_version = os.getenv("AZURE_OPENAI_API_VERSION")  
         self.mcp_server_uri = os.getenv("MCP_SERVER_URI")  
-        self.openai_model_name = os.getenv("OPENAI_MODEL_NAME")  
+        self.openai_model_name = os.getenv("OPENAI_MODEL_NAME", "gpt-4o")  
   
         self.session_id = session_id  
         self.state_store = state_store  
