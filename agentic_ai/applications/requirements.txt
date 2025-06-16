@@ -15,3 +15,5 @@ pydantic
 semantic-kernel
 azure-ai-projects
 azure-identity
+a2a-sdk
+httpx
